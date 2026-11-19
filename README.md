@@ -11,24 +11,26 @@ RANC-D directly updates anchor cluster assignments with coordinate ascent and us
 
 ## Run the benchmark demo
 
-Set the MATLAB current folder to the repository root, or add that folder to the MATLAB path. The demo reads the requested MAT file from [`datasets/`](datasets/README.md). Every bundled file contains a feature matrix `X` with one sample per row and a corresponding reference label vector `Y`. The demo gets the number of clusters from `Y` and uses `Y` to evaluate the final labels.
+Set the MATLAB current folder to the repository root, open `demo_RANC_datasets.m`, and click **Run**. With the default settings, the script runs both models once on the Seeds dataset and displays their clustering scores. You can also run the script from the Command Window.
 
 ```matlab
-demo_RANC_datasets;                            % Seeds, RANC-D
-demo_RANC_datasets('Seeds', 'both');            % RANC-D and RANC-R on the same graph
-demo_RANC_datasets('jaffe50_uni', 'R');          % Jaffe50, RANC-R
-
-[labels, weights, results] = demo_RANC_datasets('Seeds', 'both', 32, 10, 10, 20);
-disp(results);
+demo_RANC_datasets
 ```
 
-The call signature is `demo_RANC_datasets(datasetName, method, m, k, lambda, numRuns)`. Use the file name with or without `.mat`. Use `'D'`, `'R'`, or `'both'` for the method. Omitted or empty arguments use the defaults.
+Edit the settings at the top of the script to change the experiment.
 
-- The default dataset is Seeds, the default method is RANC-D, and the default number of runs is 1.
-- The demo defaults to `k = 10` and `lambda = 10`. It uses the smallest power of two that is at least 32 and greater than both the class count and `k` when `m` is empty.
-- Each run uses a reproducible seed. In `'both'` mode, both methods receive the same graph within that run.
+| Setting | Default | Usage |
+| --- | --- | --- |
+| `datasetName` | `'Seeds'` | Choose a [bundled dataset](datasets/README.md) by filename, with or without `.mat`. |
+| `method` | `'both'` | Use `'D'`, `'R'`, or `'both'`. Both methods use the same graph within a run. |
+| `m` | `[]` | Enter a power of two satisfying `max(c,k) < m < n`. Leave it empty to select the smallest eligible power of two at least 32. |
+| `k` | `10` | Set the number of nearest anchors per sample. |
+| `lambda` | `10` | Set the reliability regularization coefficient. |
+| `numRuns` | `1` | Set the number of runs. Each run uses a reproducible seed. |
 
-The results table contains one row per run and method, including ACC, NMI, ARI, F1, and the elapsed time in seconds. Time covers graph construction and the solver. ACC uses optimal one-to-one label matching. NMI divides mutual information by the larger of the two label entropies. F1 is computed over pairs of samples. A single result row returns `labels` and `weights` as vectors. Multiple result rows return cell arrays aligned with the table.
+Each MAT file contains a feature matrix `X` with one sample per row and a corresponding reference label vector `Y`. The script uses `Y` to get the number of clusters and evaluate the final labels.
+
+After the run, the workspace contains `results`, `labels`, and `weights`. The script displays one row per run and method, including ACC, NMI, ARI, F1, and the elapsed time in seconds. Time covers graph construction and the solver. ACC uses optimal one-to-one label matching. NMI divides mutual information by the larger of the two label entropies. F1 is computed over pairs of samples. For one result row, `labels` and `weights` are vectors. With multiple rows, they are cell arrays aligned with `results`.
 
 For mean and standard deviation by method, run:
 
@@ -91,4 +93,3 @@ The anchor builder follows W. Zhu, F. Nie, and X. Li, *Fast Spectral Clustering 
 ## License
 
 The software license is pending selection by the rights holders. For redistribution terms of the benchmark data, consult the original dataset providers.
-

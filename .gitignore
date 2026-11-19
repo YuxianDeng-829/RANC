@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.asv
+*.m~
+*.autosave
+*.mat
+!/datasets/*.mat
+*.mex*
+/results/

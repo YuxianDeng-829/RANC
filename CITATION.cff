@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying article."
+title: "RANC MATLAB implementation"
+type: software
+authors:
+  - family-names: Deng
+    given-names: Yuxian
+  - family-names: Zhu
+    given-names: Jianyong
+  - family-names: Nie
+    given-names: Feiping
+  - family-names: Yang
+    given-names: Hui
+preferred-citation:
+  type: article
+  title: "Reliability-aware anchor normalized clustering via bipartite graph column reweighting"
+  authors:
+    - family-names: Deng
+      given-names: Yuxian
+    - family-names: Zhu
+      given-names: Jianyong
+    - family-names: Nie
+      given-names: Feiping
+    - family-names: Yang
+      given-names: Hui
+  journal: Information Sciences
+  volume: 766
+  year: 2027
+  doi: 10.1016/j.ins.2026.124405
+  url: https://doi.org/10.1016/j.ins.2026.124405
